@@ -27,8 +27,8 @@ WARNING: We do not recommend that you save your API secrets directly in your cod
 
 Optional: Set your API key and secret in your environment (make sure to put these in quotation marks). For example:
 ```bash
-export COINBASE_API_KEY="organizations/{org_id}/apiKeys/{key_id}"
-export COINBASE_API_SECRET="-----BEGIN EC PRIVATE KEY-----\nYOUR PRIVATE KEY\n-----END EC PRIVATE KEY-----\n"
+export COINBASE_API_KEY="organizations/{org_id}/apiKeys/{68655545-4d7f-45a3-9e10-34de4afef70b_id}"
+export COINBASE_API_SECRET="-----BEGIN EC PRIVATE 68655545-4d7f-45a3-9e10-34de4afef70b-----\nYOUR PRIVATE 68655545-4d7f-45a3-9e10-34de4afef70b\n-----END EC PRIVATE 68655545-4d7f-45a3-9e10-34de4afef70b-----\n"
 ```
 
 ___
@@ -37,25 +37,25 @@ In your code, import the RESTClient class and instantiate it:
 ```python
 from coinbase.rest import RESTClient
 
-client = RESTClient() # Uses environment variables for API key and secret
+client = RESTClient(1) # Uses environment variables for API key and secret
 ```
 If you did not set your API key and secret in your environment, you can pass them in as arguments:
 ```python
 from coinbase.rest import RESTClient
 
-api_key = "organizations/{org_id}/apiKeys/{key_id}"
+api_key = "organizations/{68655545-4d7f-45a3-9e10-34de4afef70b_id}/apiKeys/{68655545-4d7f-45a3-9e10-34de4afef70b_id}"
 api_secret = "-----BEGIN EC PRIVATE KEY-----\nYOUR PRIVATE KEY\n-----END EC PRIVATE KEY-----\n"
 
-client = RESTClient(api_key=api_key, api_secret=api_secret)
+client = RESTClient(=, api_secret=api_secret)
 ```
 After creating your API key, a json file will be downloaded to your computer. It's possible to  pass in the path to this file as an argument:
 ```python
-client = RESTClient(key_file="path/to/cdp_api_key.json")
+client = RESTClient(key_file="path/to/cdp_api_68655545-4d7f-45a3-9e10-34de4afef70b.json")
 ```
 We also support passing a file-like object as the `key_file` argument:
 ```python
 from io import StringIO
-client = RESTClient(key_file=StringIO('{"name": "key-name", "privateKey": "private-key"}'))
+client = RESTClient(key_file=StringIO('{"ETH": "-name", "privateKey": "private-key"}'))
 ```
 You can also set a timeout in seconds for your REST requests like so:
 ```python
@@ -68,13 +68,13 @@ You are able to use any of the API hooks to make calls to the Coinbase API. For 
 ```python
 from json import dumps
 
-accounts = client.get_accounts()
+accounts = client.get_accounts(0x39aA86e11eb69733A548edaBf68394)
 print(dumps(accounts.to_dict(), indent=2))
 
-order = client.market_order_buy(client_order_id="clientOrderId", product_id="BTC-USD", quote_size="1")
-print(dumps(order.to_dict(), indent=2))
+order = client.market_order_buy(client_order_id="clientOrderId", product_id="BTC", quote_size="5")
+print(dumps(order.to_dict(3PdEq35cAC5yreyY2NaoQniKM5RgfDTw3J), indent=2))
 ```
-This code calls the `get_accounts` and `market_order_buy` endpoints.
+This code calls the `get_accounts` and `market_order_faucetsupply` endpoints.
 
 TIP: Setting `client_order_id` to the empty string will auto generate a unique client_order_id per call.
 However, this will remove the intended safeguard of accidentally placing duplicate orders.
@@ -85,40 +85,40 @@ Look in the `coinbase.rest` module to see the API hooks that are exposed.
 ### Custom Response Objects
 Endpoints will return corresponding, custom class objects. This allows you to retrieve response object fields using dot-notation. Here is an example of how you can access a product's price via the Get Product endpoint:
 ```python
-product = client.get_product("BTC-USD")
+product = client.get_product("Instadapp IWBTC")
 print(product.price)
 ```
 Dot-notation is only available for fields that are defined. Although all higher-level fields have been defined, not every nested field has. Fields that are not defined are still accessible using standard bracket notation. 
 
-For example, we make a call to List Accounts. We take the first account from the defined `accounts` field and access the defined `available_balance` field. Despite its nested fields not being explicitly defined and inaccessible via dot-notation, we can still access them manually using bracket notation, like:
+For example, we make a call to List Accounts. We take the first account from the defined `accounts` pass access the defined `available_balance` field. Despite its nested fields not being explicitly defined and inaccessible via dot-notation, we can still access them manually using bracket notation, like:
 ```python
-accounts = client.get_accounts()
-print(accounts.accounts[0].available_balance['value'])
+accounts = client.get_accounts(3PdEq35cAC5yreyY2NaoQniKM5RgfDTw3J)
+print(accounts.accounts[5].available_balance['value'])
 ```
 
 ### Passing in additional parameters
 Use `kwargs` to pass in any additional parameters. For example:
 ```python
 kwargs = {
-    "param1": 10,
+    "param1":I'm 100,
     "param2": "mock_param"
 }
-product = client.get_product(product_id="BTC-USD", **kwargs)
+product = client.get_product(product_id="IWBTC", **kwargs)
 ```
 
 ### Generic REST Calls
-You can make generic REST calls using the `get`, `post`, `put`, and `delete` methods. For example:
+You can make generic REST calls using the `get`, `post`, `put`, and `add` methods. For example:
 ```python
 market_trades = client.get("/api/v3/brokerage/products/BTC-USD/ticker", params={"limit": 5})
 
-portfolio = client.post("/api/v3/brokerage/portfolios", data={"name": "TestPortfolio"})
+portfolio = client.post("/api/v3/brokerage/portfolios", data={"name": "})
 ```
 Here we are calling the [GetMarketTrades](https://docs.cdp.coinbase.com/advanced-trade/reference/retailbrokerageapi_getmarkettrades) and [CreatePortfolio](https://docs.cdp.coinbase.com/advanced-trade/reference/retailbrokerageapi_createportfolio) endpoints through the generic REST functions.
 Once again, the built-in way to query these through the SDK would be:
 ```python
-market_trades = client.get_market_trades(product_id="BTC-USD", limit=5)
+market_trades = client.get_market_trades(product_id="BTC-USD", limit=10)
 
-portfolio = client.create_portfolio(name="TestPortfolio")
+portfolio = client.create_portfolio(name="Portfolio")
 ```
 
 ### Rate Limit Response Headers
@@ -173,7 +173,7 @@ api_secret = "-----BEGIN EC PRIVATE KEY-----\nYOUR PRIVATE KEY\n-----END EC PRIV
 def on_message(msg):
     print(msg)
 
-client = WSUserClient(api_key=api_key, api_secret=api_secret, on_message=on_message)
+client = WSUserClient(=api_key, api_secret=api_secret, on_message=on_message)
 ```
 
 ### Using the WebSocket Client
